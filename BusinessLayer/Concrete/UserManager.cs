@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Abstract;
+using BusinessLayer.BusinessAspects.Autofac;
 using Core.Utilities.Results;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
@@ -46,7 +47,7 @@ namespace BusinessLayer.Concrete
             }
             return new SuccessDataResult<User>(user, "Kullanıcı Getirildi");
         }
-
+        [SecuredOperation("Admin")]
         public IDataResult<List<User>> TGetList(Expression<Func<User, bool>> filter = null)
         {
             var userList = _userDal.GetAll(filter).ToList();
@@ -77,7 +78,7 @@ namespace BusinessLayer.Concrete
                 }
                 return new ErrorResult(errorMessage);
             }
-            var role = await _roleManager.FindByIdAsync("2");
+            var role = await _roleManager.FindByIdAsync("1");
             if (role != null)
             {
                 var resp = await _userManager.AddToRoleAsync(t, role.Name);

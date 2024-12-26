@@ -18,7 +18,6 @@ namespace DataAccessLayer.Concrete
     public class UserDal : GenericRepository<User>, IUserDal
     {
         private readonly IConfiguration _configuration;
-        DbContextOptions<DbContext> options;
         public UserDal(DbContext context, IConfiguration configuration) : base(context)
         {
             _configuration = configuration;
@@ -28,7 +27,7 @@ namespace DataAccessLayer.Concrete
         {
             if (user == null || user.Id == 0)
                 throw new ArgumentNullException(nameof(user), "Kullanıcı bilgisi geçerli değil.");
-            using (var context = new DbContext(options, _configuration))
+            using (var context = new DbContext(_configuration))
             {
                 var result = from role in context.Roles
                              join userrole in context.UserRoles

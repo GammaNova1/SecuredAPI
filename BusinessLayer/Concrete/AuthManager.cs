@@ -41,11 +41,7 @@ namespace BusinessLayer.Concrete
                 return new ErrorDataResult<User>("Kullanıcı kayıtlı");
             }
 
-            if (result != null)
-            {
-
-                return new ErrorDataResult<User>(null, "Hata");
-            }
+          
 
             var user = new User
             {
@@ -89,7 +85,7 @@ namespace BusinessLayer.Concrete
             {
                 return new ErrorDataResult<User>("Kullanıcı kayıtlı değil");
             }
-            if (result != null)
+            if (result == null)
             {
                 string resultMessage = "Hata";
 
@@ -110,7 +106,7 @@ namespace BusinessLayer.Concrete
             var result2 = await _signInManager.PasswordSignInAsync(userForLoginDto.Email, userForLoginDto.Password, false, false);
 
 
-            var us = _userService.TGet(a => a.Status);
+            //var us = _userService.TGet(a => a.Status);
 
             if (result2.Succeeded == false)
             {

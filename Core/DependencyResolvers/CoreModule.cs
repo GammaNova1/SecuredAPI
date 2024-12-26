@@ -12,7 +12,9 @@ namespace Core.DependencyResolvers
     {
         public void Load(IServiceCollection serviceCollection)
         {
-            throw new NotImplementedException();
+            serviceCollection.AddMemoryCache(); //Arka planda IMemoryCache instance oluşturur
+                                                //serviceCollection.AddSingleton<IHttpContextAccessor, IHttpContextAccessor>();
+          
         }
     }
 }

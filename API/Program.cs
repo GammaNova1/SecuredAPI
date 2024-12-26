@@ -150,7 +150,7 @@ namespace WebAPI
             catch (Exception exception)
             {
                 // logger.Error("Program.cs Exception: ", exception);
-                throw new Exception("hata");
+                throw new Exception(exception.Message);
             }
             finally
             {
