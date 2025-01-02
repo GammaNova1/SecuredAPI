@@ -3,6 +3,7 @@ using BusinessLayer.BusinessAspects.Autofac;
 using Core.Utilities.Results;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
+using EntityLayer.DTOS;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -139,5 +140,21 @@ namespace BusinessLayer.Concrete
 
             return new SuccessResult("Kullanıcı Güncellendi");
         }
+        [SecuredOperation("Help_Desk")]
+        public IDataResult<List<UserDetailDto>> GetUserDetail(Expression<Func<User, bool>> filter)
+        {
+            var user = _userDal.Query().Where(filter).Select(u => new UserDetailDto
+            {
+                Name = u.Name,
+                Surname = u.Surname
+            }).ToList();
+            if (user == null)
+            {
+                return new ErrorDataResult<List<UserDetailDto>>("Kullanıcı Bulunamadı");
+            }
+            return new SuccessDataResult<List<UserDetailDto>>(user, "Kullanıcı Getirildi");
+        }
+        
+           
     }
 }

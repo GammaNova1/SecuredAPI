@@ -12,5 +12,6 @@ namespace DataAccessLayer.Abstract
     public interface IUserDal : IGenericDal<User>
     {
         List<Role> GetClaims(User user); // Eklenme sebebi burada bir join atılacak
+        IQueryable<User> Query();
     }
 }

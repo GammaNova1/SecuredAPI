@@ -81,5 +81,15 @@ namespace API.Controllers
 
 
         }
+
+        [HttpGet("GetUserNamesHelpDesk")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
+        public async Task<ActionResult<ApiResponse<object>>> GetUserDetail()
+        {
+            // var userList = _userService.TGetList();
+            var usernames = _userService.GetUserDetail(x=>x.Id >0 );
+            return Ok(new ApiResponse<object>(usernames.Data, usernames.Message, HttpStatusCode.OK));
+        }
     }
 }

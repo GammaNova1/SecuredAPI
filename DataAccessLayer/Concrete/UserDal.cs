@@ -18,11 +18,18 @@ namespace DataAccessLayer.Concrete
     public class UserDal : GenericRepository<User>, IUserDal
     {
         private readonly IConfiguration _configuration;
+        private readonly DbContext _context;
         public UserDal(DbContext context, IConfiguration configuration) : base(context)
         {
             _configuration = configuration;
+            _context = context;
         }
 
+
+        public IQueryable<User> Query()
+        {
+            return _context.Set<User>().AsQueryable(); // IQueryable döndürülmesi
+        }
         public List<Role> GetClaims(User user)
         {
             if (user == null || user.Id == 0)
